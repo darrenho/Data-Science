@@ -1,0 +1,500 @@
+\documentclass[10pt]{article}
+\usepackage{calc}
+
+\reversemarginpar
+
+% 
+% PAPER SIZE, PAGE NUMBER, AND DOCUMENT LAYOUT NOTES:
+% 
+% The next \usepackage line changes the layout for CV style section
+% headings as marginal notes. It also sets up the paper size as either
+% letter or A4. By default, letter was used. If A4 paper is desired,
+% comment out the letterpaper lines and uncomment the a4paper lines.
+% 
+% As you can see, the margin widths and section title widths can be
+% easily adjusted.
+% 
+% ALSO: Notice that the includefoot option can be commented OUT in order
+% to put the PAGE NUMBER *IN* the bottom margin. This will make the
+% effective text area larger.
+% 
+% IF YOU WISH TO REMOVE THE ``of LASTPAGE'' next to each page number,
+% see the note about the +LP and -LP lines below. Comment out the +LP
+% and uncomment the -LP.
+% 
+% IF YOU WISH TO REMOVE PAGE NUMBERS, be sure that the includefoot line
+% is uncommented and ALSO uncomment the \pagestyle{empty} a few lines
+% below.
+% 
+
+%% Use these lines for letter-sized paper
+\usepackage[paper=letterpaper,
+% includefoot, % Uncomment to put page number above margin
+marginparwidth=1.2in,     % Length of section titles
+marginparsep=.05in,       % Space between titles and text
+margin=1in,               % 1 inch margins
+includemp]{geometry}
+
+%% Use these lines for A4-sized paper
+% \usepackage[paper=a4paper,
+%            % includefoot, % Uncomment to put page number above margin
+% marginparwidth=30.5mm,    % Length of section titles
+% marginparsep=1.5mm,       % Space between titles and text
+% margin=25mm,              % 25mm margins
+% includemp]{geometry}
+
+\setlength{\parindent}{0in}
+\usepackage{paralist}
+
+%% Reference the last page in the page number
+% 
+% NOTE: comment the +LP line and uncomment the -LP line to have page
+% numbers without the ``of ##'' last page reference)
+% 
+% NOTE: uncomment the \pagestyle{empty} line to get rid of all page
+% numbers (make sure includefoot is commented out above)
+% 
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+% \pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyfootoffset{\marginparsep+\marginparwidth}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+{0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+\lfoot{\hspace{\footpageshift}%
+  \parbox{4in}{\, \hfill %
+    \arabic{page} of \protect\pageref*{LastPage} % +LP
+    % \arabic{page}                               % -LP
+    \hfill \,}}
+
+% Finally, give us PDF bookmarks
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.4}
+\hypersetup{colorlinks,breaklinks,
+  linkcolor=darkblue,urlcolor=darkblue,
+  anchorcolor=darkblue,citecolor=darkblue}
+
+
+\renewcommand{\thefootnote}{$*$} 
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The title (name) with a horizontal rule under it
+% 
+% Usage: \makeheading{name}
+% 
+% Place at top of document. It should be the first thing.
+\newcommand{\makeheading}[1]%
+{\hspace*{-\marginparsep minus \marginparwidth}%
+  \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+    {\large \bfseries #1}\\[-0.15\baselineskip]%
+    \rule{\columnwidth}{1pt}%
+  \end{minipage}}
+
+% The section headings
+% 
+% Usage: \section{section name}
+% 
+% Follow this section IMMEDIATELY with the first line of the section
+% text. Do not put whitespace in between. That is, do this:
+% 
+% \section{My Information}
+% Here is my information.
+% 
+% and NOT this:
+% 
+% \section{My Information}
+% 
+% Here is my information.
+% 
+% Otherwise the top of the section header will not line up with the top
+% of the section. Of course, using a single comment character (%) on
+% empty lines allows for the function of the first example with the
+% readability of the second example.
+\renewcommand{\section}[2]%
+{\pagebreak[2]\vspace{1.3\baselineskip}%
+  \phantomsection\addcontentsline{toc}{section}{#1}%
+  \hspace{0in}%
+  \marginpar{
+    \raggedright \scshape #1}#2}
+
+% An itemize-style list with lots of space between items
+\newenvironment{outerlist}[1][\enskip\textbullet]%
+{\begin{itemize}[#1]}{\end{itemize}%
+  \vspace{-.6\baselineskip}}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section 
+\newenvironment{outerlist1}[1][\enskip\textbullet]%
+{\vspace{-\baselineskip}\begin{list}{#1}{%
+      \setlength{\partopsep}{0pt}%
+      \setlength{\topsep}{0pt}}}
+  {\end{list}\vspace{-.6\baselineskip}}
+
+% An itemize-style list with little space between items
+\newenvironment{innerlist}[1][\enskip\textbullet]%
+{\begin{compactitem}[#1]}{\end{compactitem}}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section 
+\newenvironment{innerlist1}[1][\enskip\textbullet]%
+{\vspace{-\baselineskip}\begin{compactitem}[#1]}{\end{compactitem}}
+
+% To add some paragraph space between lines.
+% This also tells LaTeX to preferably break a page on one of these gaps
+% if there is a needed pagebreak nearby.
+\newcommand{\blankline}{\quad\pagebreak[2]}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Begin CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\makeheading{Darren Homrighausen}
+
+\section{Contact Information}
+% 
+% NOTE: Mind where the & separators and \\ breaks are in the following
+% table.
+% 
+% ALSO: \rcollength is the width of the right column of the table 
+% (adjust it to your liking; default is 1.85in).
+% 
+\newlength{\rcollength}\setlength{\rcollength}{2.25in}%
+\newlength{\rrcollength}\setlength{\rrcollength}{1.75in}%
+% 
+\begin{tabular}[t]{l}
+98 S. Placid Hill Cr.    \\
+The Woodlands, TX 77381 \\
+  \url{https://darrenho.github.io.} \\ 
+  \href{mailto:dhomrigh@gmail.com}{dhomrigh@gmail.com}  \\ 
+\end{tabular}
+
+\section{Professional Positions}
+% 
+\href{http://www.smu.edu/}{\textbf{Southern Methodist University}}, \href{http://www.smu.edu/Dedman/academics/departments/statistics/}{\textbf{Department of Statistical Science}}
+Dallas, TX
+\begin{outerlist}[]
+\item[]
+\begin{innerlist}[]
+  \item \begin{tabular}{ll}
+  2016 - 2018: & Visiting Assistant Professor of Statistics
+        \end{tabular}
+\end{innerlist}
+\end{outerlist}
+
+\blankline
+
+\href{http://www.colostate.edu/}{\textbf{Colorado State University}}, \href{http://www.stat.colostate.edu/}{\textbf{Statistics Department}}
+Fort Collins, CO
+\begin{outerlist}[]
+\item[]
+\begin{innerlist}[]
+  \item \begin{tabular}{ll}
+  2012 - 2016: & Assistant Professor of Statistics
+        \end{tabular}
+\end{innerlist}
+\end{outerlist}
+
+\blankline
+
+\section{Education}
+% 
+\href{http://www.cmu.edu/}{\textbf{Carnegie Mellon University}}, 
+Pittsburgh, Pennsylvania USA
+\begin{outerlist}[]
+
+
+\item Ph.D in
+  \href{http://www.stat.cmu.edu/}
+  {Statistics},
+  May 2012
+\begin{innerlist}[]
+  \item \begin{tabular}{ll}
+    \textbf{Dissertation:} & ``Sequential estimation and detection in statistical  \\
+                           & inverse problems'' \\
+  \textbf{Advisor:} &
+    \href{http://www.stat.cmu.edu/~genovese} {Christopher R. Genovese}
+        \end{tabular}
+\end{innerlist}
+
+\item M.S. in
+  \href{http://www.stat.cmu.edu/}
+  {Statistics}, December 2008
+\end{outerlist}
+
+\blankline
+
+\href{http://www.colorado.edu/}{\textbf{University of Colorado}}, Boulder, Colorado USA
+\begin{outerlist}[]
+\item Graduate work in 
+  \href{http://amath.colorado.edu}
+  {Applied Mathematics}, 2006-2007
+  \begin{innerlist}
+  \item Left to pursue Ph.D in statistics.
+  \end{innerlist}
+  \end{outerlist}
+
+\blankline
+
+\href{http://www.colorado.edu/}{\textbf{University of Colorado}}, Denver, Colorado USA
+\begin{outerlist}[]
+\item B.A. in   \href{http://www.ucdenver.edu/academics/colleges/CLAS/Departments/economics/Pages/Economics.aspx}
+  {Economics}, B.A. in \href{http://www.ucdenver.edu/academics/colleges/CLAS/Departments/math/Pages/MathStats.aspx}
+  {Mathematics}, May 2006
+  \end{outerlist}
+
+\blankline
+
+\section{Papers in progress}
+Ding, Lei; McDonald, D.J., and \textbf{Homrighausen, D.} ``Compressed Covariance Matrix Estimation and Principal Components Regression'' \\
+
+\textbf{Homrighausen, D.}, McDonald, D.J., and Shalizi, C.R. ``Greedy Function Approximation for Macroeconomic Forecasting'' $^*$ \\
+
+%McDonald, D.J., Shalizi, C.R., and \textbf{Homrighausen, D.} ``Dynamic Stochastic Generalized Equilibrium models: prior beliefs and posterior expectations'' $^*$ \\
+
+
+\footnotetext{indicates paper is in final stages of preparation.}
+
+
+
+\section{Publications}
+\textbf{Homrighausen, D.} and McDonald, D.J. ``Compressed and Penalized Linear Regression'' (Submitted) 
+\url{https://arxiv.org/abs/1705.08036}\\
+
+\textbf{Homrighausen, D.}~and McDonald, D.J.  ``Risk estimation for high-dimensional lasso regression,'' (Submitted) \url{https://arxiv.org/abs/1602.01522}\\
+
+
+Linginer, K.; Anderson, N.; Raimondi, J.; \textbf{Homrighausen, D.}; Wohl, E. ``Discharge pulses in temperate and tropical rain forest headwater stream networks,'' (Submitted) \\
+
+
+\textbf{Homrighausen, D.}~and McDonald, D.J. (2017) ``Risk consistency of cross-validation and lasso-type
+procedures,'' \emph{Statistica Sinica} Vol. 27,  pp. 1017-1036 \\
+
+\textbf{Homrighausen, D.}~and McDonald, D.J. (2016)  ``Approximate principal components
+  analysis of large data sets via the Nystr\"om and column-sampling methods,'' \emph{Journal of Computational and Graphical Statistics} Vol. 25, No. 2, pp. 344-362 \\
+
+\textbf{Homrighausen, D.}~and McDonald, D.J., (2014) ``Leave-one-out
+cross-validation is risk consistent for lasso,'' \emph{Machine Learning} 
+97,  pp 65-78 \\
+
+\textbf{Homrighausen, D.}~and McDonald, D.J.  (2013) ``The lasso, persistence, and
+cross-validation,'' Proceedings of the 30th International Conference on Machine Learning, eds. S. Dasgupta, and D. McAllester, JMLR W\&CP 28(3), 1031--1039. \\
+
+\textbf{Homrighausen, D.}~and Genovese, C.R. (2013) ``Efficient estimators for sequential 
+and resolution-limited inverse problems,'' \emph{Electronic Journal of Statistics} 7, pp 2098-2130. \\
+
+Becker, A.C.; \textbf{Homrighausen, D.}; Connolly, A.J.; Genovese, C.R.; Owen, R.; Bickerton, S.J.; 
+and Lupton R. (2012)``Regularization techniques for PSF-matching kernels. I. Choice of kernel basis,'' 
+\emph{Monthly Notices of the Royal Astronomical Society}. Vol. 425, No. 2, pp. 1341-1349. \\
+%\href{http://arxiv.org/abs/1202.2902}{arXiv:1202.2902 [astro-ph]}. \\
+
+Stephen, K.E.; \textbf{Homrighausen, D.}, DePalma, G., Nakatsu, C., and Irudayaraj, J. (2012) ``Using RAMAN spectroscopy to 
+classify highly related bacteria.'' \emph{Analyst}. Vol. 137, pp. 4280 - 4286. \\
+
+\textbf{Homrighausen, D.}; Genovese, C.R.; Connolly, A.J.; Becker, A.C.; and Owen, R. (2011)
+``Image coaddition with temporally varying kernels,'' in \emph{Publications of the Astronomical
+Society of the Pacific}, Vol. 123, No. 907, pp. 1117-1126.\\
+
+Richards, J.W.; \textbf{Homrighausen, D.}; Freeman, P.E; Schafer, C.M.; and Poznanski, D. (2011) 
+``Semi-supervised learning for photometric supernova
+classification,'' \emph{Monthly Notices of the Royal Astronomical Society}.  
+Vol. 419, No. 2, pp. 1121-1135. \\
+%\href{http://arxiv.org/abs/1103.6034}{arXiv:1103.6034 [astro-ph]}. \\
+
+
+%\textbf{Homrighausen, D.}, McDonald, D.J., and Loewenstein, G., ``Regularized ANOVA-PCA for repeated
+%survey analysis'' 
+
+\section{Technical Reports}
+McDonald, D.J., Shalizi, C.R., and \textbf{Homrighausen, D.}, ``Macroeconometrics and empirical fantasy,'' \\
+
+\textbf{Homrighausen, D.}~and McDonald, D.J., ``Laplace Gaussian Filtering for nonlinear, non-Gaussian state space models,'' \\
+
+\textbf{Homrighausen, D.}~and McDonald, D.J., ``Spectral
+approximations in machine learning,'' 
+\href{http://arxiv.org/abs/1107.4340}{arXiv:1107.4340 [stat.ML]}. \\
+
+\section{Grants}
+%\begin{innerlist1}%[-]
+%\item ``High dimensional statistics for time-series forecasting.'' Shalizi, C.R., McDonald, D.J., and Homrighausen, D. Institute for New Economic Thinking (NSF). (Under review) 
+%\item ``Collaborative research: Statistical and computational efficiency for massive datasets via approximation-regularization'' Homrighausen, D. and McDonald, D.J. (NSF). (Under review)
+%\item ``High dimensional statistics for macroeconomic forecasting.'' Shalizi, C.R., McDonald, D.J., and Homrighausen, D. Institute for New Economic Thinking (INET). (Awarded: \$149,915, 2013 - 2016) 
+%\item ``New approaches to computationally intensive inverse problems in nonlinear electromagnetic scattering.'' Homrighausen, D., et al. National Science Foundation. (Unfunded)
+%\end{innerlist1}
+``Statistical and computational efficiency for massive datasets via approximation-regularization'' Homrighausen, D. (PI) (NSF-DMS 1407543). (Awarded: \$70,000$^{**}$; 2014 - 2016) \\
+
+``High dimensional statistics for macroeconomic forecasting'' Shalizi, C.R., McDonald, D.J., and Homrighausen, D. (CO-PI) Institute for New Economic Thinking (INET). (Awarded: \$50,000$^{**}$; 2014 - 2016)  \\
+
+\footnotetext{$^{*}$my share of grant.}
+
+``High dimensional statistics for time-series forecasting.'' Shalizi, C.R., McDonald, D.J., and Homrighausen, D. (NSF). (unfunded) \\
+
+``New approaches to computationally intensive inverse problems in nonlinear electromagnetic scattering.'' Homrighausen, D., et al. National Science Foundation. (Unfunded)
+
+
+\section{Invited Short Courses}
+%\begin{innerlist1}%[-]
+%\item Institute for New Economic Thinking (INET) Conference. Hong Kong, April 2013 \\``Machine Learning Methods in Economics'' 
+%\end{innerlist1}
+Institute for New Economic Thinking (INET) Conference. Hong Kong, April 2013 \\``Machine Learning Methods in Economics'' 
+
+
+\section{Invited Presentations}
+\begin{innerlist1}%[-]
+\item Southern Methodist University, Operations Research and Statistics Towards Integrated Analytics (Spring, 2017)\\``A General Framework for Addressing ``Any'' Machine Learning Problem''
+\item Southern Methodist University,  Statistical Sciences department (Spring, 2016)\\``Improved Computational and Statistical Efficiency via Compressed Least Squares''
+\item University of Colorado, Denver,  Math/Stat department (Spring, 2016)\\``Improved Computational and Statistical Efficiency via Compressed Least Squares''
+\item NBER/NSF Time Series  Conference [Vienna, Austria] (Fall, 2015)\\``Greedy Function Approximation for Macroeconomic Forecasting''
+\item University of Colorado, Boulder,  Applied Math department (Fall, 2015)\\``Photometric Supernovae Classification''
+\item European Conference on Machine Learning [Nancy, France] (Fall, 2014)\\``Leave-one-out cross-validation is risk consistent for lasso''
+\item Institute for New Economic Thinking Conference  [Toronto, Canada] (Spring, 2014)\\``High dimensional statistics for macroeconomic forecasting''
+\item University of Indiana, Bloomington, Statistics department (Fall, 2013)\\``The lasso, persistence, and cross-validation''
+\item Argonne National Labs (Fall, 2013)\\``Approximate Bayesian Computation: From Electromagnetics to Astrostatistics''
+\item Colorado State University, Statistics department (Fall, 2012)\\``Detecting transients in mixed resolution image data'' 
+\item University of Indiana, Bloomington, Statistics department (Spring 2012)\\ ``Efficient estimators for sequential and resolution limited inverse problems'' 
+\item Colorado State University, Statistics department  (Spring 2012)\\ ``Efficient estimators for sequential and resolution limited inverse problems''
+\item Conference on Data Analysis (CODA 2012) \\
+``Detecting transients in mixed resolution image data'' 
+\begin{itemize}
+\item[] Won \$100 u.s.d. in best poster contest
+\end{itemize}
+\item Statistical Challenges in Modern Astronomy (SCMA 2011) \\
+``FASTDetect: A stochastic process approach to detecting transients'' 
+\item SIAM conference on Data Mining (SDM 2011) \\
+``Efficient estimators for sequential and resolution limited inverse problems''
+\end{innerlist1}
+
+\section{Contributed Presentations}
+
+\begin{innerlist1}%[-]
+\item ASA conference, Denver, (2012)
+\item ASA conference, Pittsburgh, (2011,2012)
+\item Statistical Machine Learning Group, CMU (2010, 2011)
+\item Joint Statistical Meetings, Washington D.C. (2009)
+\item Astrostatistics Group, CMU (2010)
+\end{innerlist1}
+
+\newpage
+
+\section{Teaching}
+%\begin{innerlist1}%[-]
+%\item Applied Multivariate Analysis [CSU] (undergraduate,Spring 2013) 
+%\item Generalized Regression Methods [CSU] (graduate, Fall 2012)
+%\item Statistics for Engineers [CMU] (undergraduate, Fall 2008) 
+%\item Statistics for Engineers [CMU] (undergraduate, Summer 2008) 
+%\end{innerlist1}
+
+\begin{tabular}{ll}
+$\bullet$ Introduction to Data Science &  (Masters, Spring 2017, Fall 2017, Spring 2018) \\
+$\bullet$ Quantifying the World &  (Masters, Fall 2016, Fall 2017) \\
+$\bullet$ Undergraduate Statistics 1 &  (undergraduate, Fall 2017) \\
+$\bullet$ Categorical Data Analysis, GLMM &  (PhD, Spring 2016) \\
+$\bullet$ Statistical Learning and Data Mining&  (Masters, Spring 2015, Spring 2016) \\
+$\bullet$ Statistical Machine Learning &  (PhD, Fall 2014, Fall 2015, Spring 2017, Spring 2018) \\
+$\bullet$ Generalized Regression Methods &  (Masters, Fall, 2012, Fall 2013, Fall 2018) \\
+$\bullet$ Applied Multivariate Analysis &  (undergraduate, Spring 2013, Spring 2014,Spring 2015) \\
+$\bullet$ Statistics for Engineers &  (undergraduate, Fall 2008) \\
+$\bullet$ Statistics for Engineers &  (undergraduate, Summer 2008) \\
+\end{tabular}
+
+\section{Advising (completed)}
+
+\begin{tabular}{p{2.55cm}llp{4.5cm}}
+%Advisee & Role & Degree & Topic \\
+Justin Raimondi & Advisor &  (M.S. Statistics, 2017) &  Discharge pulses in stream networks\\
+\parbox{2.5cm}{ Rafe McBeth} &  Committee & (PhD. Radiation Phys., 2017) & Developing radiation sensors for manned space exploration.\\
+Xiyue Liao & Committee &  (PhD. Statistics, 2016) & Shape constrained covariance function estimation.\\
+Ben Goldman & Advisor &  (M.S. Statistics, 2015) & Classifying supernovae with functional data analysis\\
+Paul Harmon & Advisor &  (B.S. Statistics, 2015) & Predicting front range housing prices (Honors project)\\
+Greg Ellison & Advisor &  (M.S. Statistics, 2014) &  Using text mining to predict Ebay sales\\
+Yi Hu & Advisor &  (B.S. Statistics, 2014) & Investigating the tuning parameter selection of lasso\\
+Gavan Tredoux & Committee &  (M.S. Statistics, 2013) & Predicting student loan default using penalized regression\\
+\end{tabular}
+
+\section{Advising (in progress)}
+
+\begin{tabular}{p{2.6cm}llp{4.6cm}}
+%Advisee & Role & Degree & Topic \\
+Brody McCray & Advisor &  (M.S. Statistics) &  Predicting intra-day and inter-day Major League Baseball outcomes\\
+Joel Ricklefs & Advisor &  (M.S. Statistics) & Predicting recessions through machine learning.\\
+%$\bullet$ I-Chen Chen & Advisor &  (M.S. Statistics, course option) \\
+\parbox{2.5cm}{Andrea \\ Schumacher} &  Committee & (PhD. Atmosph. Sci.) & Estimating the maximum wind velocity of hurricanes.\\
+%Schumacher && \\
+\end{tabular}
+
+%\begin{tabular}{lll}
+%$\bullet$ Greg Ellison & Advisor &  (M.S. in Statistics, project) \\
+%$\quad -$ Topic & \multicolumn{2}{l}{Using text mining to predict Ebay sales.} \\
+%$\bullet$ Joel Ricklefs & Advisor &  (M.S. in Statistics, project) \\
+%$\bullet$ Ben Goldman & Advisor &  (M.S. in Statistics, project) \\
+%$\bullet$ Yi Hu & Advisor &  (B.S. in Statistics, project) \\
+%$\bullet$ I-Chen Chen & Advisor &  (M.S. in Statistics, course option) \\
+%$\bullet$ Andrea Schumacher &  Committee & (Atmospheric Sciences, in progress) \\
+%$\bullet$ Xiyue Liao & Committee &  (Statistics, in progress) \\
+%$\bullet$ Gavan Tredoux & Committee &  (M.S. Statistics, Completed Fall 2013)
+%\end{tabular}
+
+% \section{Awards}
+% \begin{innerlist1}[-]
+% \item Undergraduate Research Opportunity Award, Fall 2005 to Spring 2006.
+% \item Dean's List Scholarship, Spring 2005 to Spring 2006.
+% \end{innerlist1}
+
+
+\section{Professional Service}
+
+\begin{tabular}{ll}
+Memberships: &   \emph{American Statistical Association},
+\emph{Institute of Mathematical Statistics}  \\
+\\
+Referee: &  \parbox{4.25in}{Journal of the American Statistical Association, Statistica Sinica (2), Statistics and Computing, ICML, IEEE Information Theory,
+Journal of Statistical Planning and Inference (2), Computational Statistics and Data Analysis, Journal of Optimization Theory,
+Journal of Nonparametric Statistics}\\
+\\
+Intra-department: &  \parbox{4.25in}{Graduate student admissions (2012-2016), Department seminar (Spring, 2013, Spring 2015), 
+Tenure Track Faculty Hiring Committee (2013-2014, 2015-2016), Graduate Committee (2014-2016)}
+\end{tabular}
+
+%\section{Computing Skills}
+%\textit{Statistical Packages:} R/S-Plus, Matlab, SAS\\%, Bloomberg\\
+%\textit{Programming Languages:} C/C++, \LaTeX, Python \\
+%\textit{Operating Systems:} MacOS, Linux, Windows\\
+%
+%%\newpage
+%\section{References} 
+% References available upon request
+%Christopher R. Genovese\\
+%Professor, Department of Statistics\\
+%Carnegie Mellon University\\
+%\href{mailto:genovese@cmu.edu}{genovese@stat.cmu.edu}\\
+%
+%Larry Wasserman\\
+%Professor, Department of Statistics\\
+%Carnegie Mellon University\\
+%\href{mailto:larry@stat.cmu.edu}{larry@stat.cmu.edu}\\
+%
+%Chad M. Schafer\\
+%Associate Professor, Department of Statistics\\
+%Carnegie Mellon University\\
+%\href{mailto:schafer@stat.cmu.edu}{schafer@stat.cmu.edu}\\
+%
+%Andrew J. Connolly\\
+%Associate Professor, Department of Astronomy\\
+%University of Washington\\
+%\href{mailto:ajc@astro.washington.edu}{ajc@astro.washington.edu}\\
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% End CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+, eds. G.~Gordon, D.~Dunson, and M.~Dud{\'\i}k,
+\href{http://jmlr.csail.mit.edu/proceedings/papers/v15/mcdonald11a.html}
+{JMLR W\&CP}, \textbf{15}, 516--524,
+\href{http://arxiv.org/abs/1103.0941}{arXiv:1003.0941 [stat.ML]}.\\ 
+
+\href{http://research.stlouisfed.org/publications/review/article/6257}{\emph{Review}},
+\textbf{90}, 31--46.
